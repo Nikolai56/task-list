@@ -9,7 +9,33 @@ class App extends React.PureComponent {
     state = initialData;
 
     onDragEnd = result => {
-        console.log(result);
+        const { destination, source, draggableId } = result;
+
+        if (!destination) { return; }
+
+        if (
+            destination.draggableId === source.draggableId &&
+            destination.index === source.index
+        ) { return; }
+
+        const column = this.state.columns[source.droppableId];
+        const newtaskIds = Array.from(column.taskIds);
+        newtaskIds.splice(source.index, 1);
+        newtaskIds.splice(destination.index, 0, draggableId);
+
+        const newColumn = {
+            ...column,
+            taskIds: newtaskIds,
+        };
+
+        const newState = {
+            ...this.state,
+            columns: {
+                [newColumn.id]: newColumn,
+            },
+        };
+
+        this.setState(newState);
     };
 
     render() {
