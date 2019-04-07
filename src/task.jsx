@@ -19,6 +19,7 @@ export default class Task extends React.PureComponent {
                 draggableId={task.id}
                 index={index}
                 isDragDisabled={isDragDisabled}
+                type="task"
             >
                 {(provided, snapshot) => (
                         <Container
