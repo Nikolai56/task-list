@@ -12,10 +12,13 @@ const Container = styled.div`
 
 export default class Task extends React.PureComponent {
     render() {
+        const { isDragDisabled, index, task } = this.props;
+
         return (
             <Draggable
-                draggableId={this.props.task.id}
-                index={this.props.index}
+                draggableId={task.id}
+                index={index}
+                isDragDisabled={isDragDisabled}
             >
                 {(provided, snapshot) => (
                         <Container
@@ -24,7 +27,7 @@ export default class Task extends React.PureComponent {
                             ref={provided.innerRef}
                             isDragging={snapshot.isDragging}
                         >
-                            {this.props.task.content}
+                            {task.content}
                         </Container>
                     )}
             </Draggable>
