@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import Task from './task';
+import dragIcon from './icons/drag.svg';
 
 const Container = styled.div`
   background-color: white;
@@ -11,9 +12,19 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 220px;
+  user-select: none;
+`;
+const Header = styled.div`
+  background-color: aliceblue;
+  display: flex;
+  align-items: center;
+  padding: 8px;
 `;
 const Title = styled.h3`
-  padding: 8px;
+  margin: 0 0 0 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 const TaskList = styled.div`
   background-color: ${props => props.isDraggingOver ? 'skyblue' : 'white'};
@@ -40,7 +51,10 @@ export default class Column extends React.PureComponent {
                         ref={provided.innerRef}
                         isDragging={snapshot.isDragging}
                     >
-                        <Title {...provided.dragHandleProps} >{column.title}</Title>
+                        <Header {...provided.dragHandleProps}>
+                            <img src={dragIcon} alt="drag-image"/>
+                            <Title >{column.title}</Title>
+                        </Header>
                         <Droppable droppableId={column.id} type="task">
                             {(provided, snapshot) => (
                                 <TaskList

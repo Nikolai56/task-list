@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Draggable } from 'react-beautiful-dnd';
+import dragIcon from './icons/drag.svg';
 
 const Container = styled.div`
   background-color: ${props => props.isDragging ? 'lightgreen' : 'white'};
@@ -8,6 +9,15 @@ const Container = styled.div`
   border-radius: 2px;
   padding: 8px;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  user-select: none;
+`;
+const Title = styled.span`
+  margin: 0 0 0 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 export default class Task extends React.PureComponent {
@@ -28,7 +38,8 @@ export default class Task extends React.PureComponent {
                             ref={provided.innerRef}
                             isDragging={snapshot.isDragging}
                         >
-                            {task.content}
+                            <img src={dragIcon} alt="drag-image"/>
+                            <Title>{task.content}</Title>
                         </Container>
                     )}
             </Draggable>
